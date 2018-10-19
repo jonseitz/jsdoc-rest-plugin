@@ -1,33 +1,33 @@
 /**
- * This module defines custom JDOC tags for documenting Express routes.
- * @module jsdoc-route-plugin
+ * Defines custom JSDOC tags for documenting Express routes.
+ * @module jsdoc-express
  */
 
 'use strict';
 
-const authenticationTag = require('./lib/authentication');
-const routeTag = require('./lib/route');
-const bodyParameterTag = require('./lib/bodyparam');
-const headerParameterTag = require('./lib/headerparam');
-const queryParameterTag = require('./lib/queryparam');
-const routeParameterTag = require('./lib/routeparam');
+const authTag = require('./lib/auth');
+const endpointTag = require('./lib/endpoint');
+const bodyTag = require('./lib/body');
+const headerTag = require('./lib/header');
+const queryTag = require('./lib/query');
+const pathTag = require('./lib/path');
 
 exports.defineTags = function(dictionary) {
-  dictionary.defineTag(authenticationTag.name, authenticationTag.options);
-  dictionary.defineTag(routeTag.name, routeTag.options);
-  dictionary.defineTag(bodyParameterTag.name, bodyParameterTag.options);
-  dictionary.defineTag(headerParameterTag.name, headerParameterTag.options);
-  dictionary.defineTag(queryParameterTag.name, queryParameterTag.options);
-  dictionary.defineTag(routeParameterTag.name, routeParameterTag.options);
+  dictionary.defineTag(authTag.name, authTag.options).synonym('authentication');
+  dictionary.defineTag(endpointTag.name, endpointTag.options).synonym('route');
+  dictionary.defineTag(bodyTag.name, bodyTag.options).synonym('bodyparam');
+  dictionary.defineTag(headerTag.name, headerTag.options).synonym('headerparam');
+  dictionary.defineTag(queryTag.name, queryTag.options).synonym('queryparam');
+  dictionary.defineTag(pathTag.name, pathTag.options).synonym('pathparam').synonym('routeparam');
 };
 
 exports.handlers = {
   newDoclet: function(e) {
-    authenticationTag.newDocletHandler(e);
-    bodyParameterTag.newDocletHandler(e);
-    headerParameterTag.newDocletHandler(e);
-    queryParameterTag.newDocletHandler(e);
-    routeParameterTag.newDocletHandler(e);
-    routeTag.newDocletHandler(e);
+    authTag.newDocletHandler(e);
+    bodyTag.newDocletHandler(e);
+    headerTag.newDocletHandler(e);
+    queryTag.newDocletHandler(e);
+    pathTag.newDocletHandler(e);
+    endpointTag.newDocletHandler(e);
   }
 }
