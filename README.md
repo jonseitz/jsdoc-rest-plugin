@@ -1,90 +1,32 @@
-# JsDoc Route Plugin
+# JsDoc REST Plugin
 
-[![NPM version][npm-image]][npm-url]
-[![Dependencies][david-image]][david-url]
-[![devDependencies][david-dev-image]][david-dev-url]
+This is a fork of @bvanderlaan's [jsdoc-route-plugin](og-github)
 
-This is a plugin for [JsDoc](http://usejsdoc.org/) which is a tool to generate HTML documentation from comment blocks.
-JsDoc will scan your code files looking for comment blocks then generate a nicely formated HTML document.
-
-JsDoc supports a number of tags to help document a number of things such as each parameter in a function or what the function will return.
-These tags are picked up by JsDoc and used when generating the HTML documentation; for example function parameters are shown in a table.
-
-This plugin adds custom tags to JsDoc that work with the default document template. The custom tags are meant to help document Express routes.
-
-## Why JsDoc Route Plugin
-
-I like documenting my code within the code, that way the documentation gets updated as I update the code because the two are co-located.
-I use to do a lot of C++ and C# development and used a tool called [Doxygen](http://doxygen.org) which generated HTML documentation from comment blocks placed around my projects code files.
-When I switched over to Node.js development I found [JsDoc](http://usejsdoc.org/) which looks to do the same thing.
-
-My issue was that I was writing web services which have Express routes and [JsDoc](http://usejsdoc.org/) did not have a nice way to document those.
-I figured out how to fake it by using the `@name` tag but it was hard to document the details about my route; I was writing HTML in the long description to add parameter tables.
-
-To simplify this I wanted to add custom tags but had a hard time finding instructions on how to do that without modifying the built in [JsDoc](http://usejsdoc.org/) layout template or rolling my own template to use in its sted.
-
-I eventually figured out how to hack it by defining new tags which insert HTML into the description before it gets to the default template; JsDoc Route Plugin is a collection of those tags specifically designed to work with the default [JsDoc](http://usejsdoc.org/) template.
-They might work with other templates as they just add h5, tables, and paragraphs to the top and/or bottom of the doclets description property.
-
-They allowed me to document my routes without too much fuss and hopefully if your in the same boat will help you to.
-If I did this completely the wrong way feel free to let me know what the better solution is but for now install this plugin and start documenting!
+This is a plugin for [JsDoc](http://usejsdoc.org/) that adds custom tags to document REST API routes.
 
 ## How to install
 
-First you need to install JsDoc
-```
-npm install jsdoc --save-dev
-```
+Install JsDoc and this plugin:
 
-Then you need to install the JsDoc Route Plugin
-
-```
-npm install jsdoc-route-plugin --save-dev
+```sh
+npm install jsdoc jsdoc-rest --save-dev
 ```
 
-Next you need to tell [JsDoc](http://usejsdoc.org/) to enable the plugin.
+Then enable the plugin in your [config file](jsdoc-config):
 
-You can do this by adding a `jsdoc.conf` file and telling [JsDoc](http://usejsdoc.org/) to use it when you run it.
-
-**Example jsdoc.conf**
 ```
 {
-    "tags": {
-        "allowUnknownTags": true,
-        "dictionaries": ["jsdoc","closure"]
-    },
-    "source": {
-        "include": [ "." ],
-        "exclude": [ "node_modules" ],
-        "includePattern": ".+\\.js(doc|x)?$",
-        "excludePattern": "(^|\\/|\\\\)_"
-    },
-    "plugins": ["jsdoc-route-plugin"],
-    "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": false
-    },
-    "opts": {
-      "recurse": true
-    }
+  "plugins": ["jsdoc-rest"],
 }
 ```
 
-Now run [JsDoc](http://usejsdoc.org/) with the `--config` flag.
+Now run with the `--config` flag.
+
 ```
-./node_modules/.bin/jsdoc --config jsdoc.conf
+npx jsdoc --config jsdoc.conf
 ```
 
-## Example
-
-If you want to see an example of this plugin in action run the `npm run example1` command.
-That will run [JsDoc](http://usejsdoc.org/) against a sample Express app located in `examples` and produce HTML documentation in the `out` folder.
-To view the documentation open `out/index.html` in a browser.
-
-## What are the new Tags
-
-The new tags are all about documenting Express routes.
-Find a list of them and how they are to be used below.
+## New Tags
 
 ## @route
 
